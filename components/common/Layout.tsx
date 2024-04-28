@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import Navbar from './navbar';
-import Slider from './slider';
+
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -13,10 +13,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <View style={{ backgroundColor: '#f5f5f5' }}>
         <Navbar /> 
       </View>
-      <Slider />
-      <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         {children}
-      </View>
+      </ScrollView>
       <View style={{ backgroundColor: '#f5f5f5', padding: 10 }}>
         <Text>Stopka</Text>
       </View>

@@ -3,17 +3,22 @@ import { View, Text } from 'react-native';
 import { getPosts } from '../../services/postsService';
 import { Post } from '../../models/Post';
 import UsersActivist from './UsersActivist';
-import Comments from './Comments';
 import Counter from './Counter';
 import AddComment from './AddComponent';
+import Comments from './comments'; // Import komponentu Comments
+import '../../style/postStyle';
 
 const Posts: React.FC = () => {
-  let [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    let fetchPosts = async () => {
-      let posts = await getPosts();
-      setPosts(posts);
+    const fetchPosts = async () => {
+      try {
+        const posts = await getPosts();
+        setPosts(posts);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
     };
 
     fetchPosts();
@@ -27,8 +32,8 @@ const Posts: React.FC = () => {
           <Text>{post.title}</Text>
           <Text>{post.body}</Text>
           <Counter post={post} />
-          <AddComment postId={0} />
-          <Comments postId={post.id} />
+          <AddComment postId={post.id} /> {/* Przekazanie postId do komponentu AddComment */}
+          <Comments postId={post.id} /> {/* Przekazanie postId do komponentu Comments */}
         </View>
       ))}
     </View>

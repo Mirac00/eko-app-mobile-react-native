@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
 import { getComments } from '../../services/commentsService';
 import { Comment } from '../../models/Comment';
 import Counter from './Counter';
-import { View } from 'react-native';
 
-interface CommentsProps {
-  postId: number;
-}
-
-const Comments: React.FC<CommentsProps> = ({ postId }) => {
-  let [comments, setComments] = useState<Comment[]>([]);
+const Comments: React.FC<{ postId: number }> = ({ postId }) => {
+  const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
-    let fetchComments = async () => {
-      let comments = await getComments();
-      setComments(comments.filter(comment => comment.postId === postId));
+    const fetchComments = async () => {
+      try {
+        const comments = await getComments();
+        setComments(comments.filter(comment => comment.postId === postId));
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
     };
 
     fetchComments();
@@ -22,7 +22,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
 
   return (
     <View>
-      {comments.map((comment: Comment) => (
+      {comments.map(comment => (
         <View key={comment.id}>
           <Text>{comment.name}</Text>
           <Text>{comment.body}</Text>

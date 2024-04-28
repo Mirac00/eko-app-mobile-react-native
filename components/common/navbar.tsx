@@ -1,21 +1,22 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
+import { Link } from 'react-router-native';
 
 function Navbar() {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-around', padding: 10 }}>
-      <TouchableOpacity>
+      <Link to="/">
         <Text>Eko Project</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
+      </Link>
+      <Link to="/activeEvents">
         <Text>Strona główna</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
+      </Link>
+      <Link to="/activeEvents">
         <Text>Aktywne Wydarzenia</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
+      </Link>
+      <Link to="/contact">
         <Text>Kontakt</Text>
-      </TouchableOpacity>
+      </Link>
     </View>
   );
 }
