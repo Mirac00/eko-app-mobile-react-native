@@ -8,7 +8,7 @@ function Navbar() {
       <Link to="/">
         <Text>Eko Project</Text>
       </Link>
-      <Link to="/activeEvents">
+      <Link to="/">
         <Text>Strona główna</Text>
       </Link>
       <Link to="/activeEvents">

@@ -6,7 +6,7 @@ import UsersActivist from './UsersActivist';
 import Counter from './Counter';
 import AddComment from './AddComponent';
 import Comments from './comments'; // Import komponentu Comments
-import '../../style/postStyle';
+import styles from '../../style/postStyle';
 
 const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -25,12 +25,12 @@ const Posts: React.FC = () => {
   }, []);
 
   return (
-    <View>
+    <View style={styles.container}> {/* Dodaj styl dla kontenera */}
       {posts.map(post => (
-        <View key={post.id}>
+        <View key={post.id} style={styles.postContainer}> {/* Dodaj styl dla pojedynczego posta */}
           <UsersActivist userId={post.userId} />
-          <Text>{post.title}</Text>
-          <Text>{post.body}</Text>
+          <Text style={styles.title}>Tytuł:<br/><br/>{post.title}</Text> {/* Dodaj styl dla tytułu */}
+          <Text style={styles.body}>Opis:<br/><br/>{post.body}</Text> {/* Dodaj styl dla treści */}
           <Counter post={post} />
           <AddComment postId={post.id} /> {/* Przekazanie postId do komponentu AddComment */}
           <Comments postId={post.id} /> {/* Przekazanie postId do komponentu Comments */}

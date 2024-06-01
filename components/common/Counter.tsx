@@ -3,27 +3,27 @@ import { updatePost } from '../../services/postsService';
 import { updateComment } from '../../services/commentsService';
 import { Post } from '../../models/Post';
 import { Comment } from '../../models/Comment';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-interface IProps{
+interface IProps {
     post?: Post;
     comment?: Comment;
 }
-interface IState{
-    likes : number;
+
+interface IState {
+    likes: number;
     dislikes: number;
-    userVote: 'like' | 'dislike' | null; 
+    userVote: 'like' | 'dislike' | null;
 }
 
-let Counter: React.FC<IProps> = ({ post, comment }) => {
-
-    let [state , setState] = useState<IState>({
-        likes : post?.likes || comment?.likes || 0,
+const Counter: React.FC<IProps> = ({ post, comment }) => {
+    const [state, setState] = useState<IState>({
+        likes: post?.likes || comment?.likes || 0,
         dislikes: post?.dislikes || comment?.dislikes || 0,
         userVote: null
     });
 
-    let incr = async (): Promise<void> => {
+    const incr = async (): Promise<void> => {
         let newLikes = state.likes;
         let newDislikes = state.dislikes;
         if (state.userVote === 'dislike') {
@@ -33,7 +33,7 @@ let Counter: React.FC<IProps> = ({ post, comment }) => {
             newLikes++;
         }
         setState({
-            likes : newLikes,
+            likes: newLikes,
             dislikes: newDislikes,
             userVote: 'like'
         });
@@ -48,7 +48,7 @@ let Counter: React.FC<IProps> = ({ post, comment }) => {
         }
     };
 
-    let dincr = async (): Promise<void> => {
+    const dincr = async (): Promise<void> => {
         let newLikes = state.likes;
         let newDislikes = state.dislikes;
         if (state.userVote === 'like') {
@@ -58,7 +58,7 @@ let Counter: React.FC<IProps> = ({ post, comment }) => {
             newDislikes++;
         }
         setState({
-            likes : newLikes,
+            likes: newLikes,
             dislikes: newDislikes,
             userVote: 'dislike'
         });
@@ -73,15 +73,45 @@ let Counter: React.FC<IProps> = ({ post, comment }) => {
         }
     };
 
-    return(
-        <View>
-            <TouchableOpacity onPress={incr}>
-                <Text>{state.likes}</Text>
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity onPress={incr} style={[styles.button, styles.likeButton]}>
+                <Text style={styles.buttonText}>{state.likes}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={dincr}>
-                <Text>{state.dislikes}</Text>
+            <TouchableOpacity onPress={dincr} style={[styles.button, styles.dislikeButton]}>
+                <Text style={styles.buttonText}>{state.dislikes}</Text>
             </TouchableOpacity>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        margin: 9,
+        width: 10,
+    },
+    button: {
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 4,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    likeButton: {
+        backgroundColor: '#007bff', // Niebieski
+    },
+    dislikeButton: {
+        backgroundColor: '#dc3545', // Czerwony
+    },
+    buttonText: {
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+});
+
 export default Counter;

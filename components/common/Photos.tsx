@@ -1,34 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, ScrollView, StyleSheet } from 'react-native';
 import { getPhotos } from '../../services/photosService';
 import { Photo } from '../../models/Photo';
-import styles from '../../style/photoStyle'; // Załóżmy, że masz plik ze stylami
 
-interface PhotosProps {
-  albumId: number | null;
-}
-
-const Photos: React.FC<PhotosProps> = ({ albumId }) => {
+const Photos: React.FC<{ albumId: number | null }> = ({ albumId }) => {
   const [photos, setPhotos] = useState<Photo[]>([]);
 
   useEffect(() => {
-    if (albumId !== null) {
-      const fetchPhotos = async () => {
-        const photosFromService = await getPhotos(albumId);
-        setPhotos(photosFromService);
-      };
+    const fetchPhotos = async () => {
+      try {
+        if (albumId !== null) {
+          const fetchedPhotos = await getPhotos(albumId);
+          setPhotos(fetchedPhotos);
+        }
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+      }
+    };
 
-      fetchPhotos();
-    }
+    fetchPhotos();
   }, [albumId]);
 
   return (
-    <View style={styles.photosModalBody}>
-      {photos.map((photo) => (
-        <Image key={photo.id} source={{ uri: photo.url }} style={styles.photoImage} />
+    <ScrollView horizontal>
+      {photos.map((photo: Photo) => (
+        <Image
+          key={photo.id}
+          source={{ uri: photo.url }}
+          style={styles.photoImage}
+        />
       ))}
-    </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  photoImage: {
+    width: 200,
+    height: 150,
+    marginHorizontal: 8,
+    borderRadius: 8,
+  },
+});
 
 export default Photos;

@@ -1,18 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  card: {
-    backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    elevation: 8,
-    marginVertical: 10,
-    marginHorizontal: 20,
-    borderRadius: 10,
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#f0f0f0', // Kolor tła kontenera
+  },
+  postContainer: {
+    marginBottom: 16,
+    padding: 8,
+    backgroundColor: '#ffffff', // Kolor tła pojedynczego posta
+    borderRadius: 8,
+    elevation: 2, // Cień
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  body: {
+    fontSize: 14,
+    color: '#555555',
   },
 });
