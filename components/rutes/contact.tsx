@@ -1,6 +1,6 @@
 import React from 'react';
 import { View,Text, StyleSheet } from 'react-native';
-import ContactForm from '../common/ContactForm'; // Załóżmy, że masz taki komponent
+import ContactForm from '../common/ContactForm'; 
 
 const Contact: React.FC = () => {
   return (

@@ -5,7 +5,7 @@ import { Post } from '../../models/Post';
 import UsersActivist from './UsersActivist';
 import Counter from './Counter';
 import AddComment from './AddComponent';
-import Comments from './comments'; // Import komponentu Comments
+import Comments from './comments'; 
 import styles from '../../style/postStyle';
 
 const Posts: React.FC = () => {
@@ -25,15 +25,15 @@ const Posts: React.FC = () => {
   }, []);
 
   return (
-    <View style={styles.container}> {/* Dodaj styl dla kontenera */}
+    <View style={styles.container}>
       {posts.map(post => (
-        <View key={post.id} style={styles.postContainer}> {/* Dodaj styl dla pojedynczego posta */}
+        <View key={post.id} style={styles.postContainer}> 
           <UsersActivist userId={post.userId} />
-          <Text style={styles.title}>Tytuł:<br/><br/>{post.title}</Text> {/* Dodaj styl dla tytułu */}
-          <Text style={styles.body}>Opis:<br/><br/>{post.body}</Text> {/* Dodaj styl dla treści */}
+          <Text style={styles.title}>Tytuł:<br/><br/>{post.title}</Text> 
+          <Text style={styles.body}>Opis:<br/><br/>{post.body}</Text> 
           <Counter post={post} />
-          <AddComment postId={post.id} /> {/* Przekazanie postId do komponentu AddComment */}
-          <Comments postId={post.id} /> {/* Przekazanie postId do komponentu Comments */}
+          <AddComment postId={post.id} /> 
+          <Comments postId={post.id} /> 
         </View>
       ))}
     </View>

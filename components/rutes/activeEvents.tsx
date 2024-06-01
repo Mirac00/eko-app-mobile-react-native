@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Events from '../common/Events'; // Załóżmy, że masz taki komponent
+import Events from '../common/Events'; 
 
 const ActiveEvents: React.FC = () => {
   return (
